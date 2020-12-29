@@ -19,28 +19,29 @@ This function will create and insert/append the elements needed to display a "pa
 */
 const perPage = 10;
 let studentList = document.querySelector(".student-list");
-let html;
+
+
 let showPage = (arrayObjects, page) => {
-  let startIndex = (page * perPage ) - perPage;
+  let html;
+  let startIndex = (page * perPage) - perPage;
   let endIndex = (page * perPage);
   for (let i = 0; i < arrayObjects.length; i++){
-    if(i > startIndex && i < endIndex){
+    if(i >= startIndex && i < endIndex){
       let items  = arrayObjects[i]
-      html += `
+       html += `
       <li class="student-item cf">
       <div class="student-details">
-        <img class="avatar" src="${items.picture.thumbnail}" alt="Profile Picture">
-        <h3>${items.name.first} ${items.name.last}</h3>
-        <span class="email">${items.email}</span>
+      <img class="avatar" src="${items.picture.thumbnail}" alt="Profile Picture">
+      <h3>${items.name.first} ${items.name.last}</h3>
+      <span class="email">${items.email}</span>
       </div>
       <div class="joined-details">
-        <span class="date">Joined ${items.registered.date}</span>
+      <span class="date">Joined ${items.registered.date}</span>
       </div>
-    </li>
-      `
+      </li>`
+      studentList.innerHTML = html;
     }
-    studentList.innerHTML = html;
-    console.log(html)
+  
   }
 }
 /*
