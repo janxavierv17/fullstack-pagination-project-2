@@ -27,6 +27,7 @@ let showPage = (arrayObjects, page) => {
   let endIndex = (page * perPage);
   for (let i = 0; i < arrayObjects.length; i++){
     if(i >= startIndex && i < endIndex){
+
       let items  = arrayObjects[i]
        html += `
       <li class="student-item cf">
@@ -41,7 +42,6 @@ let showPage = (arrayObjects, page) => {
       </li>`
       studentList.innerHTML = html;
     }
-  
   }
 }
 /*
