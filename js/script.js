@@ -17,28 +17,32 @@ For assistance:
 Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
 */
-
-let showPage = (arrayObjects) => {
-   let studentList = document.querySelector(".student-list");
-
-   let list = Object.keys(arrayObjects).map(item =>`
+const perPage = 10;
+let studentList = document.querySelector(".student-list");
+let html;
+let showPage = (arrayObjects, page) => {
+  let startIndex = (page * perPage ) - perPage;
+  let endIndex = (page * perPage);
+  for (let i = 0; i < arrayObjects.length; i++){
+    if(i > startIndex && i < endIndex){
+      let items  = arrayObjects[i]
+      html += `
       <li class="student-item cf">
       <div class="student-details">
-        <img class="avatar" src="${arrayObjects[item].picture.thumbnail}" alt="Profile Picture">
-        <h3>${arrayObjects[item].name.first} ${arrayObjects[item].name.last}</h3>
-        <span class="email">${arrayObjects[item].email}</span>
+        <img class="avatar" src="${items.picture.thumbnail}" alt="Profile Picture">
+        <h3>${items.name.first} ${items.name.last}</h3>
+        <span class="email">${items.email}</span>
       </div>
       <div class="joined-details">
-        <span class="date">Joined ${arrayObjects[item].registered.date}</span>
+        <span class="date">Joined ${items.registered.date}</span>
       </div>
     </li>
-    `);
-
-   let tag = studentList.innerHTML = list.join('');
+      `
+    }
+    studentList.innerHTML = html;
+    console.log(html)
+  }
 }
-
-
-
 /*
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
@@ -47,4 +51,4 @@ This function will create and insert/append the elements needed for the paginati
 
 
 // Call functions
-showPage(data);
+showPage(data,1);
