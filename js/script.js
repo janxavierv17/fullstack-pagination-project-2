@@ -1,34 +1,21 @@
-/*
-Treehouse Techdegree:
-FSJS Project 2 - Data Pagination and Filtering
-*/
 
-
-
-/*
-For assistance:
-   Check out the "Project Resources" section of the Instructions tab: https://teamtreehouse.com/projects/data-pagination-and-filtering#instructions
-   Reach out in your Slack community: https://treehouse-fsjs-102.slack.com/app_redirect?channel=unit-2
-*/
-
-
-
-/*
-Create the `showPage` function
-This function will create and insert/append the elements needed to display a "page" of nine students
-*/
 const perPage = 9;
 let studentList = document.querySelector(".student-list");
 
+// A function that will limit the number of students to display
 let showPage = (arrayObjects, page) => {
   studentList.innerHTML = ""
   let startIndex = (page * perPage) - perPage;
   let endIndex = (page * perPage);
   studentList.innerHTML = "";
+
+  // Loops over the list parameter (arrayObjects)
   for (let i = 0; i < arrayObjects.length; i++){
     if(i >= startIndex && i < endIndex){
       let items  = arrayObjects[i]
-      let html = `
+
+      // A template literal to easily create elements with datas from the data.js
+      let html = ` 
       <li class="student-item cf">
       <div class="student-details">
       <img class="avatar" src="${items.picture.thumbnail}" alt="Profile Picture">
@@ -38,34 +25,22 @@ let showPage = (arrayObjects, page) => {
       <div class="joined-details">
       <span class="date">Joined ${items.registered.date}</span>
       </div>
-      </li>`
+      </li>` 
       studentList.insertAdjacentHTML("beforeend", html)
     }
-
   }
 }
-/*
-Create the `addPagination` function
-This function will create and insert/append the elements needed for the pagination buttons
-*/
 
 let ul = document.querySelector(".link-list")
 let li = document.getElementsByTagName("li")
 
-let addPagination = (list) => {
+let addPagination = (list) => { // This function will create and display a number of buttons
   const numOfButton = Math.ceil(list.length / perPage);
   const ul = document.querySelector("ul.link-list");
-
   ul.innerHTML = '';
   for(let i = 1; i <= numOfButton; i++){
     let buttons = `<li><button type="button">${i}</li>`
     ul.insertAdjacentHTML("beforeend", buttons)
-    // let li = document.createElement("li");
-    // let button = document.createElement("button");
-    // button.type = "button";
-    // ul.append(li)
-    // li.append(button)
-    // button.textContent = i;
   }
 
   let firstButton = document.querySelector("button");
@@ -73,6 +48,10 @@ let addPagination = (list) => {
 
   // Bubbling, delegating the event listener to the parent tag element.
   ul.addEventListener("click", e =>{
+     /* 
+      Whenever the user clicks a button it adds active class 
+      to it letting user know which page they're on. 
+     */
     if(e.target.tagName === "BUTTON"){
       let buttonActive = document.querySelector(".active");
       buttonActive.className = ""
@@ -80,7 +59,7 @@ let addPagination = (list) => {
       showPage(list, e.target.textContent)
     }
   })
-  console.log(firstButton)
+  // console.log(firstButton)
 }
 
 
